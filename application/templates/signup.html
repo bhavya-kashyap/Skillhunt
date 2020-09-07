@@ -51,7 +51,7 @@
 	  </nav>
     <!-- END nav -->
     
-    <div class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_1.jpg');" data-stellar-background-ratio="0.5">
+    <div class="hero-wrap hero-wrap-2" style="background-image: url('../static/images/bg_1.jpg');" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text align-items-end justify-content-start">
@@ -62,42 +62,106 @@
       </div>
     </div>
 
-		<section class="ftco-section ftco-degree-bg">
+		<section class="ftco-section bg-light">
       <div class="container">
         <div class="row">
-          <div class="col-md-8 ftco-animate">
-            
+       
+          <div class="col-md-12 col-lg-8 mb-5">
+            <form method="POST" action="">
+              {{ form.hidden_tag() }}
 
-            <!-- END comment-list -->
-            </div>
+              <div class="row form-group">
+                <div class="col-md-12 mb-3 mb-md-0">
+                    {{ form.name.label(class="font-weight-bold") }}
+                    {% if form.name.errors %}
+                      {{ form.name(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                      {% for error in form.name.errors %}
+                         <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                    {% else %}
+                      {{ form.name(class="form-control") }}
+                    {% endif %}
+                  </div>
+              </div>
 
-          </div> <!-- .col-md-8 -->
-           
-            <!--div class="sidebar-box ftco-animate">
-              <h3 class="heading-3">Recent Blog</h3>
-              <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(../static/images/image_1.jpg);"></a>
-                <div class="text">
-                  <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
+              <div class="row form-group">
+                <div class="col-md-12 mb-3 mb-md-0">
+                    {{ form.contact.label(class="font-weight-bold") }}
+                    {% if form.contact.errors %}
+                      {{ form.contact(class="form-control is-invalid") }}
+                      <div class="invalid-feedback">
+                        {% for error in form.contact.errors %}
+                           <span>{{ error }}</span>
+                        {% endfor %}
+                      </div>
+                      {% else %}
+                        {{ form.contact(class="form-control") }}
+                      {% endif %}
                 </div>
               </div>
-              <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(../static/images/image_2.jpg);"></a>
-                <div class="text">
-                  <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                </div>
-              </div>
-              <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(../static/images/image_3.jpg);"></a>
-                <div class="text">
-                  <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                </div>
-              </div>
-            </div-->
 
-        </div>
+              <div class="row form-group">
+                <div class="col-md-12 mb-3 mb-md-0">
+                    {{ form.location.label(class="font-weight-bold") }}
+                    {% if form.location.errors %}
+                      {{ form.location(class="form-control is-invalid") }}
+                      <div class="invalid-feedback">
+                        {% for error in form.location.errors %}
+                           <span>{{ error }}</span>
+                        {% endfor %}
+                      </div>
+                      {% else %}
+                        {{ form.location(class="form-control") }}
+                      {% endif %}
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <div class="col-md-12 mb-3 mb-md-0">
+                  {{ form.category.label(class="font-weight-bold") }}
+                  {{ form.category() }}
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <div class="col-md-12 mb-3 mb-md-0">
+                  {{ form.education.label(class="font-weight-bold") }}
+                  {{ form.education() }}
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <div class="col-md-12 mb-3 mb-md-0">
+                  {{ form.description.label(class="font-weight-bold") }}
+                  {% if form.description.errors %}
+                      {{ form.description(class="form-control is-invalid") }}
+                      <div class="invalid-feedback">
+                        {% for error in form.description.errors %}
+                           <span>{{ error }}</span>
+                        {% endfor %}
+                      </div>
+                      {% else %}
+                        {{ form.description(class="form-control") }}
+                      {% endif %}
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <div class="col-md-12">
+                  {{ form.submit(class="btn btn-primary")}}
+                </div>
+              </div>
+              <br>
+              <small class="text-muted">
+                Already Have An Account <a href="{{ url_for('login') }}">Login</a>
+              </small>
+            </form>
+          </div>
+        </div>    
       </div>
-    </section> <!-- .section -->
+    </section>
 		
 		<section class="ftco-section-parallax">
       <div class="parallax-img d-flex align-items-center">
