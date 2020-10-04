@@ -2,6 +2,8 @@ from application import app
 from flask import render_template, url_for, flash, redirect
 from application.forms import RegistrationForm, LoginForm, OtpForm
 import application.otp as otp
+from application.models import User, JobPost
+
 app.config['SECRET_KEY'] = 'skillhunt'
 
 @app.route("/")
