@@ -2,9 +2,9 @@ from application import app, db
 from flask import render_template, url_for, flash, redirect, session
 from application.forms import RegistrationForm, LoginForm, OtpForm, NewPostForm
 import application.otp as otp
+import jobquery
 from application.models import User, JobPost, load_user
-from flask_login import login_user, current_user, logout_user, login_required
-#from flask.ext.login import login_required
+#from flask_login import login_user, current_user, logout_user, login_required
 
 app.config['SECRET_KEY'] = 'skillhunt'
 
@@ -74,13 +74,7 @@ def login():
         session['anonymous_user_contact'] = form.contact.data
         if user:
             a = otp.generate_otp(int(form.contact.data))
-            print(a, user.contact)
-            lo = login_user(user, force=True, remember=True)
-            if lo:
-                print('login successful')
-                print(type(current_user))
-            else:
-                print('login unsuccessful')    
+            print(a, user.contact) 
             return redirect(url_for('otpverify'))
         else:
             flash(f'Phone number not registered, please sign up to register.', 'failure')
@@ -90,12 +84,10 @@ def login():
 @app.route('/otp', methods=['GET', 'POST'])
 @app.route('/otp.html', methods=['GET', 'POST'])
 def otpverify():
-    if session['anonymous_user_contact']:
-        return redirect(url_for('index'))
     form = OtpForm()
     if form.validate_on_submit():
         if otp.verify_otp(form.otp.data):
-            login_user(user, remember=True)
+            #login_user(user, remember=True)
             flash(f'Login successful!', 'success')
             #next_page = request.args.get('next')
             #return redirect(next_page) if next_page else redirect(url_for('index'))
@@ -129,4 +121,9 @@ def newpost():
         print('test5')
     return render_template('newpost.html', form = form)
 
-
+@app.route('/jobpost', methods=['GET', 'POST'])
+@app.route('/jobpost.html', methods=['GET', 'POST'])
+def jobpost():
+    a = JobPost.query.all()
+    b = jobquery.convert(a)
+    return render_template('jobpost.html', jobs = b)

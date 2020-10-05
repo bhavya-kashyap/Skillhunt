@@ -81,33 +81,23 @@
 					<div class="col-lg-9 pr-lg-4">
 						<div class="row">
               
-              {% if jobs %}
-              {% for i in jobs%}
-							<div class="col-md-12 ftco-animate">
-		            <div class="job-post-item p-4 d-block d-lg-flex align-items-center">
-		              <div class="one-third mb-4 mb-md-0">
-		                <div class="job-post-item-header align-items-center">
-		                	<!--span class="subadge">Freelance</span-->
-		                  <h2 class="mr-3 text-black">{{ i.title }}</h2>
-		                </div>
-		                <div class="job-post-item-body d-block d-md-flex">
-		                  <div class="mr-3"><span class="icon-layers"></span>{{ i.location }}</div>
-		                  <div><span class="icon-my_location"></span> <span>{{ i.category }}</span></div>
-		                </div>
-		              </div>
-
-		              <div class="one-forth ml-auto d-flex align-items-center mt-4 md-md-0">
-		              	<div>
-			                <a href="#" class="icon text-center d-flex justify-content-center align-items-center icon mr-2">
-			                	<span class="icon-heart"></span>
-			                </a>
-		                </div>
-		                <a href="job-single.html" class="btn btn-primary py-2">{{ i.email }}</a>
-		              </div>
-		            </div>
-              </div>
+              {% for i in jobs %}
+                <div class="col-md-12 ftco-animate">
+                    <div class="job-post-item p-4 d-block d-lg-flex align-items-center">
+                        <div class="mb-4 mb-md-0">
+                            <div class="job-post-item-header align-items-center">
+                              <span class="subadge">{{ i.category }}</span><br>
+                              <h3 class="text-black">{{ i.title }}</h3>
+                              <a href="job-single.html">{{ i.email }}</a>
+                              <div><span class="icon-layers"></span> <span>{{ i.employer_contact }}</span></div>
+                              <div><span class="icon-my_location"></span><span>{{ i.location }}</span></div>		                  
+                            </div>
+                        </div>
+                      </div>
+                  </div>
               {% endfor %}
-              {% endif %}<!-- end -->
+            </div>
+              <!-- end -->
             </div>
           </div>
         </div>
@@ -115,83 +105,6 @@
       </section>
 
 
-
-		<section class="ftco-section bg-light">
-      <div class="container">
-        <div class="row">
-    
-          <div class="col-md-12 col-lg-8 mb-5">
-            <form method="POST" action="">
-              {{ form.hidden_tag() }}
-
-              <div class="row form-group">
-                <div class="col-md-12 mb-3 mb-md-0">
-                    {{ form.title.label(class="font-weight-bold") }}
-                    {% if form.title.errors %}
-                      {{ form.title(class="form-control is-invalid") }}
-                    <div class="invalid-feedback">
-                      {% for error in form.title.errors %}
-                         <span>{{ error }}</span>
-                      {% endfor %}
-                    </div>
-                    {% else %}
-                      {{ form.title(class="form-control") }}
-                    {% endif %}
-                  </div>
-              </div>
-
-              
-              <div class="row form-group">
-                <div class="col-md-12 mb-3 mb-md-0">
-                  {{ form.category.label(class="font-weight-bold") }}
-                  {{ form.category() }}
-                </div>
-              </div>
-
-              <div class="row form-group">
-                <div class="col-md-12 mb-3 mb-md-0">
-                    {{ form.email.label(class="font-weight-bold") }}
-                    {% if form.email.errors %}
-                      {{ form.email(class="form-control is-invalid") }}
-                      <div class="invalid-feedback">
-                        {% for error in form.email.errors %}
-                           <span>{{ error }}</span>
-                        {% endfor %}
-                      </div>
-                      {% else %}
-                        {{ form.email(class="form-control") }}
-                      {% endif %}
-                </div>
-              </div>
-              
-              <div class="row form-group">
-                <div class="col-md-12 mb-3 mb-md-0">
-                    {{ form.location.label(class="font-weight-bold") }}
-                    {% if form.location.errors %}
-                      {{ form.location(class="form-control is-invalid") }}
-                      <div class="invalid-feedback">
-                        {% for error in form.location.errors %}
-                           <span>{{ error }}</span>
-                        {% endfor %}
-                      </div>
-                      {% else %}
-                        {{ form.location(class="form-control") }}
-                      {% endif %}
-                </div>
-              </div>
-
-              <div class="row form-group">
-                <div class="col-md-12">
-                  {{ form.submit(class="btn btn-primary")}}
-                </div>
-              </div>
-              <br>
-              
-            </form>
-          </div>
-        </div>    
-      </div>
-    </section>
 		
 		<section class="ftco-section-parallax">
       <div class="parallax-img d-flex align-items-center">
