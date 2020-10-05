@@ -1,13 +1,14 @@
-from application import app
-from flask_sqlalchemy import SQLAlchemy
-import os
+from application import app, db, login_manager
+from flask_login import UserMixin
 
-file_path = os.path.abspath(os.getcwd())+"\database.db"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+file_path
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
+x = 10
 
-class User(db.Model):
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, nullable=False, default=x+1)
     name = db.Column(db.String(50), nullable=False)
     contact = db.Column(db.String(10), primary_key=True)
     location = db.Column(db.String(100), nullable=False)
@@ -22,7 +23,7 @@ class User(db.Model):
 class JobPost(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
-    contact = db.Column(db.String(10), nullable=False)
+    category = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(100), nullable=False)
     location = db.Column(db.String(100), nullable=False)
     employer_contact = db.Column(db.String(10), db.ForeignKey('user.contact'), nullable=False)

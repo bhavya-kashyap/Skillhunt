@@ -50,13 +50,27 @@
 	    </div>
 	  </nav>
     <!-- END nav -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+          <div class="container-fluid px-md-4	">
+          <div class="alert alert-{{ category }}">
+            {{ message }}
+          </div>
+          </div>
+        </nav>
+        {% endfor %}
+      {% endif %}
+    {% endwith%}
     
     <div class="hero-wrap hero-wrap-2" style="background-image: url('../static/images/bg_1.jpg');" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text align-items-end justify-content-start">
           <div class="col-md-12 ftco-animate text-center mb-5">
-            <h1 class="mb-3 bread">Sign Up!</h1>
+            <h1 class="mb-3 bread">Enter OTP!</h1>
           </div>
         </div>
       </div>

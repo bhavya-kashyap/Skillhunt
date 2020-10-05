@@ -1,11 +1,9 @@
-from application.routes import db
+from application.routes import db, User, JobPost
 
 db.create_all()
 
-from application.routes import User, JobPost
-
-user1 = User(name="bhavya", contact="8949870585", location="jaipur", category="IT", education="Graduate", description="hello")
-user2 = User(name="kashyap", contact="9024666793", location="jaipur", category="IT", education="Graduate", description="hello")
+user1 = User(id = "1", name="bhavya", contact="8949870585", location="jaipur", category="IT", education="Graduate", description="hello")
+user2 = User(id = "2", name="kashyap", contact="9024666793", location="jaipur", category="IT", education="Graduate", description="hello")
 
 db.session.add(user1)
 db.session.add(user2)
