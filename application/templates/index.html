@@ -44,6 +44,7 @@
             <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
             {% if session['anonymous_user_contact'] %}
               <li class="nav-item cta mr-md-1"><a href="/logout" class="nav-link">Logout</a></li>
+              <li class="nav-item cta cta-colored"><a href="/profile" class="nav-link">Profile</a></li>
             {% else %}
 	            <li class="nav-item cta mr-md-1"><a href="/login" class="nav-link">Login</a></li>
               <li class="nav-item cta cta-colored"><a href="/signup" class="nav-link">Sign Up</a></li>

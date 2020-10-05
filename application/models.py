@@ -29,4 +29,4 @@ class JobPost(db.Model):
     employer_contact = db.Column(db.String(10), db.ForeignKey('user.contact'), nullable=False)
 
     def __repr__(self):
-        return f"JobPost('{self.title}', '{self.category}', '{self.employer_contact}', '{self.email}','{self.location}')"
+        return f"JobPost('{self.id}', {self.title}', '{self.category}', '{self.employer_contact}', '{self.email}','{self.location}')"

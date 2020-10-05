@@ -119,11 +119,38 @@ def newpost():
         print('test4')
         flash(f'Job posted', 'success')
         print('test5')
+        return redirect(url_for('profile'))
     return render_template('newpost.html', form = form)
 
 @app.route('/jobpost', methods=['GET', 'POST'])
 @app.route('/jobpost.html', methods=['GET', 'POST'])
 def jobpost():
+    if not session['anonymous_user_contact']:
+        return redirect(url_for('login'))
     a = JobPost.query.all()
     b = jobquery.convert(a)
     return render_template('jobpost.html', jobs = b)
+
+@app.route('/profile', methods=['GET', 'POST'])
+def profile():
+    if not session['anonymous_user_contact']:
+        return redirect(url_for('login'))
+    u = User.query.filter_by(contact=session['anonymous_user_contact']).first()
+    jq = JobPost.query.filter_by(employer_contact=session['anonymous_user_contact'])
+    j = jobquery.convert(jq)
+    return render_template('profile.html', userinfo = u, jobs = j)
+
+@app.route('/profile/<id>/', methods=['POST'])
+def deletepost(id):
+    if not session['anonymous_user_contact']:
+        return redirect(url_for('login'))
+    post = JobPost.query.filter_by(id=id).first()
+    db.session.delete(post)
+    db.session.commit()
+    flash('Your post has been deleted successfully.')
+    return redirect(url_for('profile'))
+    
+    #u = User.query.filter_by(contact=session['anonymous_user_contact']).first()
+    #jq = JobPost.query.filter_by(employer_contact=session['anonymous_user_contact'])
+    #j = jobquery.convert(jq)
+     
