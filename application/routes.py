@@ -9,7 +9,7 @@ from application.models import User, JobPost, load_user
 app.config['SECRET_KEY'] = 'skillhunt'
 
 def check_session(func):
-    if session['anonymous_user_contact']:
+    if session['anonymous_user_id']:
         def inner():
             func()
             return inner
@@ -48,13 +48,13 @@ def blog4():
 @app.route('/signup', methods=['GET', 'POST'])
 @app.route('/signup.html', methods=['GET', 'POST'])
 def signup():
-    if session['anonymous_user_contact']:
+    if session['anonymous_user_id']:
         return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(name=form.name.data, contact=form.contact.data, location=form.location.data, category=form.category.data, education=form.education.data, description=form.description.data)
-        session['anonymous_user_id'] = user.id
-        session['anonymous_user_contact'] = user.contact
+        #session['anonymous_user_id'] = user.id
+        session['anonymous_user_id'] = user.contact
         db.session.add(user)
         db.session.commit()
         flash(f'Account created for {form.name.data} with contact number {form.contact.data}!', 'success')
@@ -64,14 +64,14 @@ def signup():
 @app.route('/login', methods=['GET', 'POST'])
 @app.route('/login.html', methods=['GET', 'POST'])
 def login():
-    if session['anonymous_user_contact']:
+    if session['anonymous_user_id']:
         return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
         global user
         user = User.query.filter_by(contact=form.contact.data).first()
         #session['anonymous_user_id'] = user.id
-        session['anonymous_user_contact'] = form.contact.data
+        session['anonymous_user_id'] = form.contact.data
         if user:
             a = otp.generate_otp(int(form.contact.data))
             print(a, user.contact) 
@@ -98,19 +98,19 @@ def otpverify():
 
 @app.route("/logout")
 def logout():
-    session['anonymous_user_contact'] = None
+    session['anonymous_user_id'] = None
     return redirect(url_for('index'))
 
 
 @app.route('/newpost', methods=['GET', 'POST'])
 @app.route('/newpost.html', methods=['GET', 'POST'])
 def newpost():
-    if not session['anonymous_user_contact']:
+    if not session['anonymous_user_id']:
         return redirect(url_for('login'))
     form = NewPostForm()
     if form.validate_on_submit():
         print('test1')
-        print(session['anonymous_user_contact'])
+        print(session['anonymous_user_id'])
         jobpost = JobPost(title=form.title.data, category=form.category.data, location=form.location.data, email=form.email.data, employer_contact=session['anonymous_user_contact'])
         print('test2')
         db.session.add(jobpost)
@@ -125,7 +125,7 @@ def newpost():
 @app.route('/jobpost', methods=['GET', 'POST'])
 @app.route('/jobpost.html', methods=['GET', 'POST'])
 def jobpost():
-    if not session['anonymous_user_contact']:
+    if not session['anonymous_user_id']:
         return redirect(url_for('login'))
     a = JobPost.query.all()
     b = jobquery.convert(a)
@@ -133,7 +133,7 @@ def jobpost():
 
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
-    if not session['anonymous_user_contact']:
+    if not session['anonymous_user_id']:
         return redirect(url_for('login'))
     u = User.query.filter_by(contact=session['anonymous_user_contact']).first()
     jq = JobPost.query.filter_by(employer_contact=session['anonymous_user_contact'])
@@ -142,7 +142,7 @@ def profile():
 
 @app.route('/profile/<id>/', methods=['POST'])
 def deletepost(id):
-    if not session['anonymous_user_contact']:
+    if not session['anonymous_user_id']:
         return redirect(url_for('login'))
     post = JobPost.query.filter_by(id=id).first()
     db.session.delete(post)
