@@ -88,7 +88,7 @@
                             <div class="job-post-item-header align-items-center">
                               <span class="subadge">Category: {{ userinfo.category }}</span><br>
                               <h3 class="text-black">Name: {{ userinfo.name }}</h3>
-                              <span class="subadge">Contact: {{ userinfo.contact }}</span>
+                              <span class="subadge">Contact: <a href="tel:{{ userinfo.contact }}">{{ userinfo.contact }}</a></span>
                               <div><span class="icon-layers"></span> <span>Education: {{ userinfo.education }}</span></div>
                               <div><span class="icon-my_location"></span><span>Location: {{ userinfo.location }}</span></div>
                               <div><span class="icon-layers"></span> <span>Description: {{ userinfo.description }}</span></div>             

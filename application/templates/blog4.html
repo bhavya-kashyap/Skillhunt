@@ -25,6 +25,12 @@
     <link rel="stylesheet" href="../static/css/flaticon.css">
     <link rel="stylesheet" href="../static/css/icomoon.css">
     <link rel="stylesheet" href="../static/css/style.css">
+    <style>
+        .bar {
+            fill: steelblue;
+        }
+    </style>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
   </head>
   <body>
     
@@ -42,9 +48,14 @@
 	          <!--li class="nav-item"><a href="candidates.html" class="nav-link">Canditates</a></li-->
 	          <li class="nav-item"><a href="/index.html#blogs" class="nav-link">Blog</a></li>
 	          <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
-	          <li class="nav-item cta mr-md-1"><a href="/login" class="nav-link">Login</a></li>
-	          <li class="nav-item cta cta-colored"><a href="/signup" class="nav-link">Sign Up</a></li>
-	        </ul>
+            {% if session['anonymous_user_contact'] %}
+            <li class="nav-item cta mr-md-1"><a href="/logout" class="nav-link">Logout</a></li>
+            <li class="nav-item cta cta-colored"><a href="/profile" class="nav-link">Profile</a></li>
+          {% else %}
+            <li class="nav-item cta mr-md-1"><a href="/login" class="nav-link">Login</a></li>
+            <li class="nav-item cta cta-colored"><a href="/signup" class="nav-link">Sign Up</a></li>
+          {% endif %}
+        </ul>
 	      </div>
 	    </div>
 	  </nav>
@@ -55,7 +66,7 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-end justify-content-start">
           <div class="col-md-12 ftco-animate text-center mb-5">
-            <h1 class="mb-3 bread">{{ title }}</h1>
+            <h1 class="mb-3 bread">Ways to stay relevant</h1>
           </div>
         </div>
       </div>
@@ -65,7 +76,92 @@
       <div class="container">
         <div class="row">
           <div class="col-md-8 ftco-animate">
-            <p>{{ paragraph1 }}</p>
+            <svg width="600" height="500"></svg>
+<script>
+
+    var svg = d3.select("svg"),
+        margin = 200,
+        width = svg.attr("width") - margin,
+        height = svg.attr("height") - margin
+
+    svg.append("text")
+       .attr("transform", "translate(100,0)")
+       .attr("x", 50)
+       .attr("y", 50)
+       .attr("font-size", "24px")
+       .text("Lifestyle Job Trends")
+
+    var xScale = d3.scaleBand().range([0, width]).padding(0.4),
+        yScale = d3.scaleLinear().range([height, 0]);
+
+    var g = svg.append("g")
+               .attr("transform", "translate(" + 100 + "," + 100 + ")");
+
+    d3.csv("XYZ.csv", function(error, data) {
+        if (error) {
+            throw error;
+        }
+
+        xScale.domain(data.map(function(d) { return d.Locations; }));
+        yScale.domain([0, d3.max(data, function(d) { return d.Jobs; })]);
+
+        g.append("g")
+         .attr("transform", "translate(0," + height + ")")
+         .call(d3.axisBottom(xScale))
+         .append("text")
+         .attr("y", height - 250)
+         .attr("x", width - 100)
+         .attr("text-anchor", "end")
+         .attr("stroke", "black")
+         .text("Locations");
+
+        g.append("g")
+         .call(d3.axisLeft(yScale).tickFormat(function(d){
+             return d;
+         })
+         .ticks(10))
+         .append("text")
+         .attr("transform", "rotate(-90)")
+         .attr("y", 6)
+         .attr("dy", "-5.1em")
+         .attr("text-anchor", "end")
+         .attr("stroke", "black")
+         .text("Jobs Available");
+
+        g.selectAll(".bar")
+         .data(data)
+         .enter().append("rect")
+         .attr("class", "bar")
+         .attr("x", function(d) { return xScale(d.Locations); })
+         .attr("y", function(d) { return yScale(d.Jobs); })
+         .attr("width", xScale.bandwidth())
+         .attr("height", function(d) { return height - yScale(d.Jobs); });
+    });
+</script>
+            <p>Tech is a fast paced industry, full of new trends and emerging technologies. Needs and roles change regularly. As a recruiter, what can you do to keep abreast of this notoriously evolving industry? Today we’ll explore three ways you can keep up to date in the world of recruiting in tech.
+            <ul>
+            <li>Accept change
+            <br>
+              Change isn’t something anyone generally likes. Knowledge is difficult to obtain, so it can sting when we realise our hard earned know-how is no longer relevant. But recruiting in tech means this will happen, and frequently. Accept this, and ready yourself for it.
+            </li>
+             <li>Keep an eye on the industry
+            <br>
+               Watch the industry for news, changes, and emerging trends or technologies. Knowing the industry inside out means you will be better placed to spot future competencies and skill sets that could be useful to you or your company.
+
+Likely many technologies of the next five years do not yet exist. However, of those which do, these are just some that are only going to increase their importance and impact:
+<br>
+Artificial intelligence<br>
+Advanced robotics<br>
+Biometric technology<br>
+Genomics<br>
+Blockchain<br>
+            </li>
+             <li>Constantly iterate your hiring process
+            <br>
+               In a world of change, there are elements you can control. Having a smooth and functional hiring process is something which will always serve you well. Seek feedback from all stakeholders, candidates (both successful and unsuccessful) included. When the needs of the industry, as well as the needs of candidates, are ever-changing, your hiring process will need to adapt to serve them both.
+            </li>
+          </ul>
+            </p>
             <p>
             <img src="../static/images/image_7.jpg" alt="" class="img-fluid">
             </p>
@@ -195,6 +291,6 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="../static/js/google-map.js"></script>
   <script src="../static/js/main.js"></script>
-    
+    <script src="https://d3js.org/d3.v4.min.js"></script>
   </body>
 </html>

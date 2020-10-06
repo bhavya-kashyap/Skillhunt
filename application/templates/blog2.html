@@ -42,8 +42,13 @@
 	          <!--li class="nav-item"><a href="candidates.html" class="nav-link">Canditates</a></li-->
 	          <li class="nav-item"><a href="/index.html#blogs" class="nav-link">Blog</a></li>
 	          <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
-	          <li class="nav-item cta mr-md-1"><a href="/login" class="nav-link">Login</a></li>
-	          <li class="nav-item cta cta-colored"><a href="/signup" class="nav-link">Sign Up</a></li>
+          {% if session['anonymous_user_contact'] %}
+            <li class="nav-item cta mr-md-1"><a href="/logout" class="nav-link">Logout</a></li>
+            <li class="nav-item cta cta-colored"><a href="/profile" class="nav-link">Profile</a></li>
+          {% else %}
+            <li class="nav-item cta mr-md-1"><a href="/login" class="nav-link">Login</a></li>
+            <li class="nav-item cta cta-colored"><a href="/signup" class="nav-link">Sign Up</a></li>
+          {% endif %}
 	        </ul>
 	      </div>
 	    </div>
@@ -55,7 +60,7 @@
       <div class="container">
         <div class="row no-gutters slider-text align-items-end justify-content-start">
           <div class="col-md-12 ftco-animate text-center mb-5">
-            <h1 class="mb-3 bread">{{ title }}</h1>
+            <h1 class="mb-3 bread">Employers must ask</h1>
           </div>
         </div>
       </div>
@@ -65,7 +70,59 @@
       <div class="container">
         <div class="row">
           <div class="col-md-8 ftco-animate">
-            <p>{{ paragraph1 }}</p>
+            <p>Recruiters face enough challenges as it is without worrying if they asked the right questions in an interview.
+              It is essential when determining who the best fit for a job is. Of course, ensuring that a
+             candidate has the required skill set is of primary concern, but it is also important to dig a
+              little deeper and find out what kind of person they are. The goal is to snag a complete candidate,
+              one with both the right personality and expertise.
+              So here are the best nine interview questions for you to ask your next star candidate.
+              <br>
+              <ul>
+          <li>     1. “What hobbies do you have?”
+            <br>
+            Starting with an easy one here, and this question should be obvious for recruiters. Primarily it gives
+            your candidate a chance to relax, but it can also offer you a key insight. For example, if they enjoy playing a
+            lot of sport, it shows they are energetic individuals who are health conscious. If they like writing or drawing,
+            ask them how they can transfer that creativity into their new role. Always have a follow-up question and try to revert
+            it back to the role at hand.</li>
+            <li>
+              2. “Tell me about your greatest professional achievement?”
+              <br>
+              You want a candidate that has their sights set high, right? This question allows your potential employee
+              to share some of their proudest professional moments. You can assess each achievement and see how ambitious
+              they are. There is a big difference between a candidate who tells you their greatest exploit was always being
+              on-time for work and one who boosted website traffic by 65% over a six month period.
+            </li>
+            <li> 3. “What was the biggest obstacle you have overcome?”
+              <br>
+              Everyone faces certain challenges in both their personal and professional lives. What’s most important in this
+              case is how your candidate overcame each hurdle. What did they learn from this
+experience? How would they deal with this obstacle if it were to happen again? It gives you an opportunity to see
+              their problem-solving skills and how they can deal with pressures of the role.
+            </li>
+            <li>4. “What is your biggest strength?”
+              <br>
+              A much more comprehensive question compared to the now mundane “what are your weaknesses?”
+              archetype. Candidates predict the latter and generally have a bland, pre-prepared answer.
+              When asking about strengths, it allows the interviewee to paint their skills and traits in a
+positive light and generate a greater variety of answers.
+            </li>
+            <li>5. “Tell me about a time when you got it all wrong?”
+              <br>
+              This question allows you to see how honest your candidate is.
+              No one is perfect, and a dishonest answer should be a major red flag for any recruiter.
+              When the interviewee extrapolates, ask them what they’ve learned from the tough experience.
+              Admitting to errors or blunders also shows that they can take ownership of situations and look for
+              solutions rather than transfer blame.
+            </li>>
+            <li>
+              6. “Where do you see yourself in 5 years?”
+              <br>
+              You want your star candidate to think ahead. Only ambitious employees will truly push the boundaries, and that’s the kind of person you want working in your company. It also gives insight into how long the candidate might plan on staying at your business. The right candidate will list their career goals and be a motivated individual who is looking for career progression.
+            </li>
+          </ul>
+            <>
+            </p>
             <p>
             <img src="../static/images/image_7.jpg" alt="" class="img-fluid">
             </p>
